@@ -19,7 +19,16 @@ Este proyecto es el resultado de nuestro trabajo final en la materia de bases de
    pip install -r backend/requirements.txt
    cd backend
    python manage.py migrate
+   python manage.py runserver
 
+   ```
+## Inicializacion de Frontend
+
+### FrontEnd (React)
+
+   ```bash
+   pnpm install
+   pnpm run dev
    ```
 ## Estructura de la Base de Datos
 La base de datos está compuesta por las siguientes tablas:
