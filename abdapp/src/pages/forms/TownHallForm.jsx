@@ -1,8 +1,15 @@
 import React from "react";
 import Fields from "../../components/Fields";
 import FieldsCheckBox from "../../components/FieldsCheckBox";
+import {useForm} from 'react-hook-form';
 
 function TownHall (){
+    const {register, handleSubmit, formState} = useForm();
+    const onSubmit = handleSubmit( async (data) => {
+        const res = await createCity(data)
+        console.log(data);
+        
+    });
     var nameforms = 'TownHall'
     return(
         <section className="w-screen relative">
@@ -11,18 +18,24 @@ function TownHall (){
                     <div className="rounded bg-blue-50">
                         <h2 className="text-black pt-6 text-5xl mb-4 text-center font-medium">Forms {nameforms}</h2>
                         <div className="text-black text-sm pb-4">
-                            <form className="px-5 ">
+                            <form className="px-5 " onSubmit={onSubmit}>
                             <div className="space-y-12 flex justify-center">
                                     <div className="border-b border-gray-900/10 pb-12">
                                         <h2 className="text-base font-semibold leading-7 text-gray-900">{nameforms}'s informations</h2>
                                         <Fields 
                                             labelname = 'Id TownHall'  
-                                            placehold = 'GUS' />
+                                            placehold = 'GUS' 
+                                            register={register}
+                                            />
                                         <Fields 
                                             labelname = 'Mayor name' 
-                                            placehold = 'Galan' />
+                                            placehold = 'Galan' 
+                                            register={register}
+                                            />
                                         <FieldsCheckBox
-                                            labelname = 'Active' />
+                                            labelname = 'Active' 
+                                            register={register}
+                                            />
                                     </div>
                                 </div>
 

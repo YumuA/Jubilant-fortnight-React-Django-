@@ -3,7 +3,7 @@ import Fields from "../../components/Fields";
 import {useForm} from 'react-hook-form';
 import { createCity } from '../../api/city.api.js'
 import { useNavigate } from "react-router-dom";
-
+import CityList from "../lists/CityList.jsx";
 function PageP (){
 
         const {register, handleSubmit, formState} = useForm();
@@ -46,7 +46,9 @@ function PageP (){
                     </div>
                 </section>
             </div>
+            <CityList />
         </section>
+        
     )
 }
 

@@ -76,8 +76,22 @@ class NuevoCountry(CreateView):
 class CountryAPISerializer(CreateAPIView):
     serializer_class = CountrySerializer
 
+
 class CountryListAPIView(ListAPIView):
     serializer_class = CountrySerializer
 
     def get_queryset(self):
         return Country.objects.all()
+    
+class CountryAPIRetrive(RetrieveAPIView):
+    serializer_class = CountrySerializer
+
+    def get_queryset(self):
+        return Country.objects.all()
+
+class CountryAPIDelete(DestroyAPIView):
+    serializer_class = CountrySerializer
+
+    def get_queryset(self):
+        return Country.objects.all()
+    

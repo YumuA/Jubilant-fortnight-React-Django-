@@ -41,34 +41,6 @@ from .models import City
 
 from .forms import NewCityForm
 
-# ------------------------------------------------------------------
-# CREAR City
-# ------------------------------------------------------------------
-
-class NuevoCity(CreateView):
-    # Modelo usado para la vista
-    model = City
-    # Template usado en la vista
-    template_name = 'City/NuevoCity.html'
-    # Contexto usado para la impresión en el html
-    context_object_name = 'NewCity'
-    # formulario usado en la vista
-    form_class = NewCityForm
-    # Dirección a la que va cuando se ejecuta el submit
-    success_url = reverse_lazy('inicio_app:home')
-
-    def form_valid(self, form):
-        # Guardando los datos del formulario
-        city = form.save(commit=False)
-        city.save()
-        # Return del formulario completado
-        return super(NuevoCity, self).form_valid(form)
-
-# ------------------------------------------------------------------
-# API CREAR UN TRABAJO
-# ------------------------------------------------------------------
-#class TrabajoAPISerializer(CreateAPIView):
-#   serializer_class = TrabajosSerializer
 
 # ------------------------------------------------------------------
 # API CREAR UN TRABAJO

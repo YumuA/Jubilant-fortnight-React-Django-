@@ -1,7 +1,14 @@
 import React from "react";
 import Fields from "../../components/Fields";
+import {useForm} from 'react-hook-form';
 
 function CountryLanguage (){
+    const {register, handleSubmit, formState} = useForm();
+    const onSubmit = handleSubmit( async (data) => {
+        const res = await createCity(data)
+        console.log(data);
+        
+    });
     var nameforms = 'Country Language'
     return(
         <section className="w-screen relative">
@@ -10,7 +17,7 @@ function CountryLanguage (){
                     <div className="rounded bg-blue-50">
                         <h2 className="text-black pt-6 text-5xl mb-4 text-center font-medium">Forms {nameforms}</h2>
                         <div className="text-black text-sm pb-4">
-                            <form className="px-5 ">
+                            <form className="px-5 " onSubmit={onSubmit}>
                             <div className="space-y-12 flex justify-center">
                                     <div className="border-b border-gray-900/10 pb-12">
                                         <h2 className="text-base font-semibold leading-7 text-gray-900">{nameforms}'s informations</h2>

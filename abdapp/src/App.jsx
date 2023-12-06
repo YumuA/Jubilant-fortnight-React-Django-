@@ -18,7 +18,7 @@ function App() {
         <TopBar />
         <main className='relative w-full overflow-hidden'>
           <Routes>
-            <Route paath='/' element={< Start/>}/>
+            <Route path='/' element={< Start/>}/>
             <Route path='/city' element={<PageP />} />
             <Route path='/language' element={<Language />} />
             <Route path='/country' element={<CountryForm/>}/>
@@ -27,7 +27,7 @@ function App() {
             <Route path='/update' element={< Update/>} />
             <Route path='/city/:id' element={< Citycards/>} />
           </Routes>
-          <CityList />
+          
         </main>
       </>
     </Router>

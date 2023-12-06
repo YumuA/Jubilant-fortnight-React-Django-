@@ -1,7 +1,14 @@
 import React from "react";
 import Fields from "../../components/Fields";
+import {useForm} from 'react-hook-form';
 
 function CountryForm (){
+    const {register, handleSubmit, formState} = useForm();
+    const onSubmit = handleSubmit( async (data) => {
+        const res = await createCity(data)
+        console.log(data);
+        
+    });
     var nameforms = 'Country'
     return(
         <section className="w-screen relative">
@@ -10,55 +17,74 @@ function CountryForm (){
                     <div className="rounded bg-blue-50">
                         <h2 className="text-black pt-6 text-5xl mb-4 text-center font-medium">Forms {nameforms}</h2>
                         <div className="text-black text-sm pb-4">
-                            <form className="px-5 ">
+                            <form className="px-5 " onSubmit={onSubmit}>
                             <div className="space-y-12 flex justify-center">
                                     <div className="border-b border-gray-900/10 pb-12">
                                         <h2 className="text-base font-semibold leading-7 text-gray-900">{nameforms}'s informations</h2>
                                         <Fields 
                                             labelname = 'Country Name'  
-                                            placehold = 'Spain' />
+                                            register={register}
+                                            placehold = 'Spain' 
+                                            />
                                         <Fields 
                                             labelname = 'Country id' 
-                                            placehold = 'SP' />
+                                            register={register}
+                                            placehold = 'SP' 
+                                            />
                                         <Fields 
                                             labelname = 'Contintent' 
-                                            placehold = 'Europe' />
+                                            register={register}
+                                            placehold = 'Europe' 
+                                            />
                                         <Fields 
                                             labelname = 'Region Country' 
-                                            placehold = 'Europe' />
+                                            register={register}
+                                            placehold = 'Europe' 
+                                            />
                                         <Fields 
                                             labelname = 'CountryArea' 
-                                            placehold = '30000' />
+                                            register={register}
+                                            placehold = '30000' 
+                                            />
                                         <Fields 
                                             labelname = 'Populaion Country' 
-                                            placehold = '300000' />
+                                            register={register}
+                                            placehold = '300000' 
+                                            />
                                         <Fields 
                                             labelname = 'Life Expancy'
                                             placehold = '70'
+                                            register={register}
                                             />
                                         <Fields 
                                             labelname = 'GNP Country'
                                             placehold = '300'
+                                            register={register}
                                             />
                                         <Fields 
                                             labelname = 'GNPold'
                                             placehold = '300000'
+                                            register={register}
                                             />
                                         <Fields 
                                             labelname = 'Country Local Name'
                                             placehold = 'Spain'
+                                            register={register}
                                             />
                                         <Fields 
                                             labelname = 'Country Governement'
                                             placehold = 'King'
+                                            register={register}
                                             />
                                         <Fields 
                                             labelname = 'Capitalid'
                                             placehold = '3'
+                                            register={register}
                                             />
                                         <Fields 
                                             labelname = 'Country Code'
                                             placehold = '29'
+                                            register={register}
                                             />                                            
                                     </div>
                                 </div>

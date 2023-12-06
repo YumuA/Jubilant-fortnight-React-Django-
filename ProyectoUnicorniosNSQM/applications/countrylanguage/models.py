@@ -1,9 +1,10 @@
 from django.db import models
+from applications.language.models import Language
 
 class CountryLanguage(models.Model):
-    id_language = models.CharField('idLanguageofcountry', max_length=3, primary_key=True)
+    id_language = models.ForeignKey('language.Language', verbose_name=('idLanguageofcountry'), on_delete=models.CASCADE)
+    name_language = models.CharField('Name Language', max_length=3, primary_key=True)
     id_country = models.CharField('id country', max_length=3)
-    name_language = models.CharField('Name Language', max_length=3)
 
     class Meta:
         verbose_name = 'Name Language'

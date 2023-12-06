@@ -22,14 +22,14 @@ class NewCityForm(forms.ModelForm):
         # Campos usados en el formulario
         fields = (
             'name',
-            'idcountry',
+            'id_country',
             'district',
             'population',
         )
         # Labels de los campos del formulario
         labels = {
             'name': 'Name of city',
-            'idcountry': 'id Country',
+            'id_country': 'id Country',
             'district': 'District',
             'population': 'population',
         }

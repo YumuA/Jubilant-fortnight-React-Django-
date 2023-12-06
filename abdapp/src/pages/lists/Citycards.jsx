@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom"
+import '../../styles/sass/components/cards.sass'
 
 
 function Citycards({ City }){
     const navigate = useNavigate();
     return(
-        <div className="bg-blue-50 mt-3 mx-20 w-60 p-3 rounded" onClick={() =>{
+        <div className="cards" onClick={() =>{
             navigate('')
         }}>
             <h1 className="">City's name: 
@@ -12,6 +13,9 @@ function Citycards({ City }){
             </h1>
             <p>Population {City.population}</p>
             <p>Country {City.idcountry}</p>
+            {console.log(City.name)}
+            <button type='' className="botones">Delete</button>
+                            
         </div>
     )
 }

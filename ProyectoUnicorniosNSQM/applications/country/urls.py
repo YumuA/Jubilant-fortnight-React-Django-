@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import CountryAPISerializer, CountryListAPIView
+from .views import CountryAPISerializer, CountryListAPIView, CountryAPIRetrive, CountryAPIDelete
 
 app_name = "country_app"
 
@@ -10,6 +10,12 @@ urlpatterns = [
                 name='NewCountry'),
         path('showcountry/',
              CountryListAPIView.as_view(),
-             name='Country-list')
+             name = 'Show Country'),
+        path('showcountry/<pk>',
+             CountryAPIRetrive.as_view(),
+             name='Country-listed'),
+        path('deletecountry/<pk>',
+             CountryAPIRetrive.as_view(),
+             name='deleting')
 
 ]
