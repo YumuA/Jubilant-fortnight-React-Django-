@@ -4,9 +4,9 @@ import axios from 'axios'
 const languages = axios.create({
     baseURL: 'http://localhost:8000/'
 })
-export const getAllCountryLanguage = () => languages.get('/showcountryl/');
+export const getAllCountryLanguage = () => languages.get('/showcountrysl/');
 
 
-export const  createLanguage = (language) => languages.post('/Newlanguage/',language);
+export const  createCLanguage = (language) => languages.post('/NewCl/',language);
 
-export const  deletelanguage = (language) => languages.delete('/showlanguage/:id',language);
+export const  deleteCLanguage = (language) => languages.delete('/showcountrysl/:id',language);

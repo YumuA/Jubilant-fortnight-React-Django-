@@ -2,7 +2,7 @@ from django.db import models
 
 class Language(models.Model):
     id_language = models.CharField('nombreLanguage', max_length=25, primary_key=True)
-    percentage = models.BigIntegerField('PercentageOfSpeakers', unique=True)
+    percentage = models.BigIntegerField('PercentageOfSpeakers')
     is_official = models.BooleanField('active', default=False)
     name_language = models.CharField('NameOfLanguage', max_length=25)
 

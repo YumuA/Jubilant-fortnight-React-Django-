@@ -13,7 +13,6 @@ function Citycards({ City }){
             </h1>
             <p>Population {City.population}</p>
             <p>Country {City.idcountry}</p>
-            {console.log(City.name)}
             <button type='' className="botones">Delete</button>
                             
         </div>

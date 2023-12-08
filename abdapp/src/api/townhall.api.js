@@ -6,10 +6,10 @@ const TownHalls = axios.create({
 })
 
 
-export const getAllTownHalls = () => TownHalls.get('/showtownhall/');
+export const getAllTownHalls = () => TownHalls.get('/showtownhalls/');
 
 
 export const  createtownhall = (townhall) =>TownHalls.post('/NewTownHall/',townhall);
 
 
-export const  deletetownhall = (townhall) =>TownHalls.delete('/showtownhall/:id',townhall);
+export const  deletetownhall = (townhall) =>TownHalls.delete('/showtownhalls/:id',townhall);

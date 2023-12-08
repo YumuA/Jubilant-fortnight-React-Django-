@@ -1,14 +1,39 @@
 import React from "react";
 import Fields from "../../components/Fields";
 import {useForm} from 'react-hook-form';
+import { useEffect, useState } from "react"
+import { getAllLanguages, createLanguage, deleteLanguage } from '../../api/language.api.js';
+import { getAllcountrys, createCountry, deleteCountry } from '../../api/country.api.js';
+
+
 
 function CountryLanguage (){
     const {register, handleSubmit, formState} = useForm();
+    const [languages, setLanguage] = useState([])
+    const [countrys, setCountry] = useState([])
+
+    useEffect(() => {
+        
+        async function loadLanguages(data){
+            const res = await getAllLanguages(data);
+            setLanguage(res.data);
+        }
+        loadLanguages();    
+        async function loadCountrys(){
+            const res = await getAllcountrys();
+            setCountry(res.data);
+        }
+        loadCountrys(); 
+    },[])
+   
+   
+
     const onSubmit = handleSubmit( async (data) => {
-        const res = await createCity(data)
+        const res = await getAllLanguages(data)
         console.log(data);
         
     });
+
     var nameforms = 'Country Language'
     return(
         <section className="w-screen relative">
@@ -21,10 +46,23 @@ function CountryLanguage (){
                             <div className="space-y-12 flex justify-center">
                                     <div className="border-b border-gray-900/10 pb-12">
                                         <h2 className="text-base font-semibold leading-7 text-gray-900">{nameforms}'s informations</h2>
-                                        <Fields type='text'labelname="district" placehold="CD" register={register} />
-                                        <Fields type='text'labelname="district" placehold="CD" register={register} />
-                                        <Fields type='text'labelname="district" placehold="CD" register={register} />
-                                       
+                                        <Fields type='text'labelname="name_language" placehold="name of language" register={register} />
+                                        <label htmlFor="id_country" className="text-sm font-medium leading-5 text-gray-700 flex mb-1">Select Country</label>
+                                        <select name="id_country" register={register("id_country")} className="ring-gray-300 border-0 rounded p-2 w-full text-gray-700 text-sm bg-transparent ">
+                                            {countrys.map(country => (
+                                                <option key={country.id_country} value={country.id_country}>
+                                                    {country.nombre_country}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <label htmlFor="id_language" className="text-sm font-medium leading-5 text-gray-700 flex mb-1">Select Language</label>
+                                       <select name="id_language" register={register("id_language")} className="ring-gray-300 border-0 rounded p-2 w-full text-gray-700 text-sm bg-transparent ">
+                                            {languages.map(language => (
+                                                <option key={language.id_language} value={language.id_language}>
+                                                    {language.name_language}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
                                 </div>
 
@@ -43,3 +81,9 @@ function CountryLanguage (){
 }
 
 export default CountryLanguage
+
+function LanguageOption({ language }) {
+    return (
+        <option value={language.id_language}>{language.name_language}</option>
+    );
+}

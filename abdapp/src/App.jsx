@@ -16,7 +16,7 @@ function App() {
     <Router>
       <>
         <TopBar />
-        <main className='relative w-full overflow-hidden'>
+        <main className='relative w-full overflow-hidden '>
           <Routes>
             <Route path='/' element={< Start/>}/>
             <Route path='/city' element={<PageP />} />

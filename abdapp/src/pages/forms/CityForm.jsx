@@ -28,6 +28,7 @@ function PageP (){
                                         <Fields type='text'labelname="idCity" placehold="BOG" register={register}/>
                                         <Fields type='text'labelname="name" placehold="Bogotá" register={register} />
                                         <Fields type='text'labelname="idcountry" placehold="COL" register={register} />
+                                        
                                         <Fields type='text'labelname="district" placehold="CD" register={register} />
                                         <Fields type='number'labelname="population" placehold="12000" register={register} />
                                         <Fields type='text'labelname="idTownHall" placehold="GAL" register={register} />

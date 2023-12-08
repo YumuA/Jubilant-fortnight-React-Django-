@@ -14,7 +14,7 @@ class FieldsCheckBox extends React.Component{
             <>
             <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8">
                 <div className="">
-                    <label for="username" className="block text-sm font-medium leading-6 text-gray-900">{labelname}</label>
+                    <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">{labelname}</label>
                         <label className="switch">
                         <input 
                         type="checkbox" 

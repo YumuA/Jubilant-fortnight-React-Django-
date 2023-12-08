@@ -1,31 +1,29 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
+import '../styles/sass/components/Start.sass';
 
-
-function Start(){
-    return(
-        <section className="w-screen relative">
-            <div className="z-30 relative flex flex-col"> 
-                <section className="pt-[70px] mx-20 relative">
-                    <div className="rounded bg-blue-50">
-                        <h2 className="text-black pt-6 text-5xl mb-4 text-center font-medium">WELCOME</h2>
-                        <div className="text-black text-sm pb-4">
-                            <div className="space-y-12 flex justify-center">
-                                <div className="grid border-green-900/10 pb-12">
-                                    <h1 className="text-base font-semibold leading-7 text-gray-900">This is the proyect of Kevin Santiago Rojas Rosas, Engineer of systems</h1>
-                                    <Link to='/townhall'>
-                                        <button className="bg-blue-400 py-3 px-2 rounded-md text-sm text-white justify-center">Press here to continue</button>
-                                    </Link>
-
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-                </section>
+function Start() {
+  return (
+    <section className="custom-section">
+      <div className="custom-container">
+        <section className="custom-subsection">
+          <div className="custom-rounded-container">
+            <h2 className="custom-title">WELCOME</h2>
+            <div className="custom-text-container">
+              <div className="custom-inner-container">
+                <div className="custom-grid">
+                  <h1 className="custom-subtitle">This is the project of Kevin Santiago Rojas Rosas, Engineer of systems</h1>
+                  <Link to='/townhall' className="link">
+                    <button className="custom-button">Press here to continue</button>
+                  </Link>
+                </div>
+              </div>
             </div>
+          </div>
         </section>
-    )
+      </div>
+    </section>
+  );
 }
 
-export default Start
+export default Start;
