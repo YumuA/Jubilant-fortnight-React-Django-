@@ -2,8 +2,10 @@ import React from "react";
 import Fields from "../../components/Fields";
 import {useForm} from 'react-hook-form';
 import { useEffect, useState } from "react"
-import { getAllLanguages, createLanguage, deleteLanguage } from '../../api/language.api.js';
+import { getAllLanguages} from '../../api/language.api.js';
 import { getAllcountrys, createCountry, deleteCountry } from '../../api/country.api.js';
+import { useNavigate } from "react-router-dom"
+import { getAllCountryLanguage, createCLanguage } from "../../api/countrylanguage.api";
 
 
 
@@ -76,14 +78,49 @@ function CountryLanguage (){
                     </div>
                 </section>
             </div>
+            {showCL()}
         </section>
     )
 }
 
 export default CountryLanguage
 
-function LanguageOption({ language }) {
-    return (
-        <option value={language.id_language}>{language.name_language}</option>
-    );
-}
+
+
+function showCL(){
+
+    const [CountryLanguages, setCountryLanguage] = useState([])
+  
+    useEffect(() => {
+  
+        async function loadCountryLanguages(){
+            const res = await getAllCountryLanguage();
+            setCountryLanguage(res.data);
+        }
+        loadCountryLanguages();
+    }, []);
+    return(
+        <div className=" ">
+            {CountryLanguages.map(CountryLanguage =>  (
+                <CountryLanguagecards key={CountryLanguage.name_language} CountryLanguage={CountryLanguage} />
+            ))}
+        </div>
+    )
+  }
+  
+  function CountryLanguagecards({ CountryLanguage }){
+    const navigate = useNavigate();
+    return(
+        <div className="cards" onClick={() =>{
+            navigate('')
+        }}>
+            <h1 className="">CountryLanguage's name: 
+                <span className="">{CountryLanguage.name_language}</span>
+            </h1>
+            <p>Id language {CountryLanguage.id_language}</p>
+            <p>Id country {CountryLanguage.id_country}</p>
+            <button type='' className="botones">Delete</button>
+                            
+        </div>
+    )
+  }

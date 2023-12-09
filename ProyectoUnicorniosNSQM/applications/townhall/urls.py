@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import TownHallAPISerializer, TownHallListAPIView
+from .views import TownHallAPISerializer, TownHallListAPIView, TownHallDeleteAPIView
 
 app_name = "townhall_app"
 
@@ -9,4 +9,5 @@ urlpatterns = [
                 TownHallAPISerializer.as_view(),
                 name='NewTownHall'),
                 path('showtownhalls/', TownHallListAPIView.as_view(), name='townhall-list'),
+                path('deletetownhalls/', TownHallDeleteAPIView.as_view(), name='townhall-del'),
 ]

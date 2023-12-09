@@ -16,9 +16,9 @@ function TownHall (){
     var nameforms = 'TownHall'
     return(
       <div>
-        <section className="town-hall">
-        <div className="town-hall-container">
-          <section className="town-hall-section">
+        <section className="w-screen relative">
+            <div className="z-30 relative flex flex-col"> 
+              <section className="pt-[70px] mx-20 relative">
             <div className="town-hall-rounded-container">
               <h2 className="town-hall-title">Forms {nameforms}</h2>
               <div className="town-hall-text-container">
@@ -27,17 +27,17 @@ function TownHall (){
                     <div className="town-hall-border-container">
                       <h2 className="town-hall-subtitle">{nameforms}'s informations</h2>
                       <Fields
-                        labelname='Id TownHall'
+                        labelname='id_townhall'
                         placehold='GUS'
                         register={register}
                       />
                       <Fields
-                        labelname='Mayor name'
+                        labelname='mayor'
                         placehold='Galan'
                         register={register}
                       />
                       <Fields
-                        labelname='Councillor'
+                        labelname='councillor'
                         placehold='councillor'
                         register={register}
                       />
@@ -56,9 +56,7 @@ function TownHall (){
           </section>
         </div>
       </section>
-      <div className="cartas">
         {showtown()}
-      </div>
       </div>
     )
 }
@@ -78,14 +76,13 @@ function showtown(){
       loadTownHalls();
   }, []);
   return(
-      <div className=" ">
+      <div className="flex m-0">
           {TownHall.map(TownHall =>  (
-              <TownHallcards key={TownHall.idTownHall} TownHall={TownHall} />
+              <TownHallcards key={TownHall.id_TownHall} TownHall={TownHall} />
           ))}
       </div>
   )
 }
-
 
 function TownHallcards({ TownHall }){
   const navigate = useNavigate();
@@ -98,7 +95,13 @@ function TownHallcards({ TownHall }){
           </h1>
           <p>Mayor {TownHall.mayor}</p>
           <p>Councillor {TownHall.councillor}</p>
-          <button type='' className="botones">Delete</button>
+          <button onClick= { async () =>{
+            const accept = window.confirm('are u sure=')
+            if (accept){
+                await deletetownhall(townhall.id_townhall)
+                navigate("/townhall")
+            }
+        }} className="botones">Delete</button>
                           
       </div>
   )

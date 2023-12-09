@@ -47,7 +47,9 @@ function PageP (){
                     </div>
                 </section>
             </div>
+            <div className="flex">
             <CityList />
+            </div>
         </section>
         
     )

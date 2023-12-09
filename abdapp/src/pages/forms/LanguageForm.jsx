@@ -2,14 +2,39 @@ import React from "react";
 import Fields from "../../components/Fields";
 import FieldsCheckBox from "../../components/FieldsCheckBox";
 import {useForm} from 'react-hook-form';
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { createLanguage, getAllLanguages, deleteLanguage, updateLanguage, getLanguage } from "../../api/language.api"; 
+import { useParams } from "react-router-dom";
 
 function Language(){
-        const {register, handleSubmit, formState} = useForm();
-        const onSubmit = handleSubmit( async (data) => {
-            const res = await createCity(data)
-            console.log(data);
-            
+        const { register, handleSubmit, formState, setValue } = useForm();
+        const params = useParams();
+        const navigate = useNavigate();
+    
+        const onSubmit = handleSubmit(async (data) => {
+            if (params.id_Language) {
+                const res = await updateLanguage(params.id_Language, data);
+                console.log(res);
+            } else {
+                const res = await createLanguage(data);
+                console.log(res);
+            }
         });
+    
+        useEffect(() => {
+            async function loadLanguage() {
+                if (params.id_Language) {
+                    console.log('Funciona obtener');
+                    const res = await getLanguage(params.id_Language);
+    
+                    setValue('id_language', res.data.id_language);
+                    setValue('percentage', res.data.percentage);
+                }
+            }
+    
+            loadLanguage();
+        }, [params.id_Language, setValue]);
         var nameforms = 'Language';
         
         return(
@@ -22,25 +47,22 @@ function Language(){
                         <div className="text-black text-sm pb-4">
                             <form className="px-5 " onSubmit={onSubmit}>
                             <div className="space-y-12 flex justify-center">
-                                    <div className="border-b border-gray-900/10 pb-12">
+                                    <div className=" border-b  border-gray-900/10 pb-12">
                                         <h2 className="text-base font-semibold leading-7 text-gray-900">{nameforms}'s informations</h2>
+
                                         <Fields 
-                                            labelname = 'Name Of Language' 
-                                            placehold = 'Latín' 
-                                            register={register}
-                                            />
-                                        <Fields 
-                                            labelname = 'Id Language'  
+                                            labelname = 'id_language'  
                                             placehold = 'Englush' 
                                             register={register}
                                             />
                                         <Fields 
-                                            labelname = 'Percentage of speakers' 
+                                            labelname = 'percentage' 
                                             placehold = '10' 
+                                            type = 'number'
                                             register={register}
                                             />
                                         <FieldsCheckBox 
-                                            labelname = 'Active' 
+                                            labelname = 'is_official' 
                                             placehold = '✅' 
                                             register={register}
                                             />
@@ -59,8 +81,52 @@ function Language(){
                 </section>
             </div>
         </section>
+            {showLan()}
+
             </>
         )
     }
 
 export default Language;
+
+function showLan(){
+
+    const [Language, setLanguage] = useState([])
+  
+    useEffect(() => {
+  
+        async function loadLanguages(){
+            const res = await getAllLanguages();
+            setLanguage(res.data);
+        }
+        loadLanguages();
+    }, []);
+    return(
+        <div className="flex m-0">
+            {Language.map(Language =>  (
+                <Languagecards key={Language.id_Language} Language={Language} />
+            ))}
+        </div>
+    )
+  }
+  
+  function Languagecards({ Language }){
+    const navigate = useNavigate();
+    return(
+        <div className="cards" >
+            <h1 className="">Language's name: 
+                <span className="">{Language.id_language}</span>
+            </h1>
+            <p>Percentege {Language.percentage}</p>
+            <p>Official {Language.is_official}</p>
+            <button onClick= { async () =>{
+            const accept = window.confirm('are u sure=')
+            if (accept){
+                await deleteLanguage(Language.id_language)
+                navigate("/language")
+            }
+        }} className="botones">Delete</button>
+                            
+        </div>
+    )
+  }

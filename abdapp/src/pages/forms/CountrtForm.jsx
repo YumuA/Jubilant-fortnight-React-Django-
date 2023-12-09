@@ -1,16 +1,21 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import Fields from "../../components/Fields";
 import {useForm} from 'react-hook-form';
+import { useNavigate } from "react-router-dom"
+import { getAllcountrys, createCountry } from "../../api/country.api";
+
 
 function CountryForm (){
     const {register, handleSubmit, formState} = useForm();
     const onSubmit = handleSubmit( async (data) => {
-        const res = await createCity(data)
+        const res = await createCountry(data)
         console.log(data);
         
     });
     var nameforms = 'Country'
     return(
+        <div>
         <section className="w-screen relative">
             <div className="z-30 relative flex flex-col"> 
                 <section className="pt-[70px] mx-20 relative">
@@ -100,7 +105,50 @@ function CountryForm (){
                 </section>
             </div>
         </section>
+ 
+            {showCL()}
+        </div>
     )
 }
 
 export default CountryForm
+
+
+function showCL(){
+
+    const [Countrys, setCountry] = useState([])
+  
+    useEffect(() => {
+  
+        async function loadCountrys(){
+            const res = await getAllcountrys ();
+            setCountry(res.data);
+        }
+        loadCountrys();
+    }, []);
+    return(
+        <div className=" ">
+            {Countrys.map(Country =>  (
+                <Countrycards key={Country.nombre_country_} Country={Country} />
+            ))}
+        </div>
+    )
+  }
+  
+  function Countrycards({ Country }){
+    const navigate = useNavigate();
+    return(
+        <div className="cards" onClick={() =>{
+            navigate('')
+        }}>
+            <h1 className="">Country's name: 
+                <span className="">{Country.nombre_country}</span>
+            </h1>
+            <p>Id country  {Country.id_country}</p>
+            <p>Id population {Country.population}</p>
+            <p>Language{Country.name_language}</p>
+            <button type='' className="botones">Delete</button>
+                            
+        </div>
+    )
+  }

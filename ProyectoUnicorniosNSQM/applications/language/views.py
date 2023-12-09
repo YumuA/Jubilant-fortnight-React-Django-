@@ -81,3 +81,15 @@ class LanguageListAPIView(ListAPIView):
 
     def get_queryset(self):
         return Language.objects.all()
+
+class LanguageDeleteAPIView(DestroyAPIView):
+    serializer_class = LanguageSerializer
+
+    def get_queryset(self):
+        return Language.objects.all()
+        
+class LanguageUpdateAPIView(UpdateAPIView):
+    serializer_class = LanguageSerializer
+
+    def get_queryset(self):
+        return Language.objects.all()
