@@ -1,17 +1,47 @@
 import React from "react";
 import Fields from "../../components/Fields";
-import {useForm} from 'react-hook-form';
-import { createCity } from '../../api/city.api.js'
+import { createCity, deleteCity, getAllCitys } from '../../api/city.api.js'
+import { getAllTownHalls } from '../../api/townhall.api.js'
+import { getAllcountrys } from '../../api/country.api.js'
 import { useNavigate } from "react-router-dom";
 import CityList from "../lists/CityList.jsx";
+import {useForm} from 'react-hook-form';
+import { useEffect, useState } from "react"
 function PageP (){
-
+    const [Citys, setCity] = useState([])
         const {register, handleSubmit, formState} = useForm();
-        const onSubmit = handleSubmit( async (data) => {
-            const res = await createCity(data)
-            console.log(data);
-            
+        const [townhalls, settownhalls] = useState([])
+        const [Countrys, setcountrys] = useState([])
+        
+        const onSubmit = handleSubmit(async (data) => {
+            try {
+                const res = await createCity(data);
+                console.log(res.data);
+            } catch (error) {
+                console.error("Error al enviar datos:", error);
+            }
         });
+
+        useEffect(() => {
+
+            async function loadTownhall(data){
+                const res = await getAllTownHalls(data);
+                settownhalls(res.data);
+            }
+
+            async function loadCitys(data){
+                const res = await getAllCitys(data);
+                setCity(res.data);
+            };
+            async function loadCountrys(){
+                const res = await getAllcountrys();
+                setcountrys(res.data);
+            }
+            loadCountrys(); 
+            loadCitys();
+            loadTownhall();
+        }, []);
+
 
     var nameforms = 'City'
     return(
@@ -27,11 +57,25 @@ function PageP (){
                                         <h2 className="text-base font-semibold leading-7 text-gray-900">{nameforms}'s informations</h2>
                                         <Fields type='text'labelname="idCity" placehold="BOG" register={register}/>
                                         <Fields type='text'labelname="name" placehold="Bogotá" register={register} />
-                                        <Fields type='text'labelname="idcountry" placehold="COL" register={register} />
+                                        <select name="id_country" {...register("id_country")} className="ring-gray-300 border-0 rounded p-2 w-full text-gray-700 text-sm bg-transparent ">
+                                            {Countrys.map(Country => (
+                                                <option key={Country.id_country} value={Country.id_country}>
+                                                    {Country.id_country}
+                                                </option>
+                                            ))}
+                                        </select>
                                         
                                         <Fields type='text'labelname="district" placehold="CD" register={register} />
                                         <Fields type='number'labelname="population" placehold="12000" register={register} />
-                                        <Fields type='text'labelname="idTownHall" placehold="GAL" register={register} />
+                                         <label htmlFor="id_townhall" className="text-sm font-medium leading-5 text-gray-700 flex mb-1">Select Townhall</label>
+                                        <select name="id_townhall" {...register("id_townhall")} className="ring-gray-300 border-0 rounded p-2 w-full text-gray-700 text-sm bg-transparent ">
+                                            {townhalls.map(townhall => (
+                                                <option key={townhall.id_townhall} value={townhall.id_townhall}>
+                                                    {townhall.id_townhall}
+                                                </option>
+                                            ))}
+                                        </select>
+
 
                                     </div>
                                 </div>
@@ -56,3 +100,4 @@ function PageP (){
 }
 
 export default PageP
+

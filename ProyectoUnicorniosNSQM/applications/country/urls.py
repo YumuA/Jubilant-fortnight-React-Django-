@@ -14,7 +14,7 @@ urlpatterns = [
         path('showcountry/<pk>',
              CountryAPIRetrive.as_view(),
              name='Country-listed'),
-        path('deletecountry/<pk>',
+        path('deletecountry/<str:pk>',
              CountryAPIDelete.as_view(),
              name='deleting')
 

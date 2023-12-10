@@ -94,4 +94,3 @@ class CountryAPIDelete(DestroyAPIView):
 
     def get_queryset(self):
         return Country.objects.all()
-    

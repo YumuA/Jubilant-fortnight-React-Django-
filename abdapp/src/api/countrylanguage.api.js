@@ -9,4 +9,4 @@ export const getAllCountryLanguage = () => languages.get('/showcountrysl/');
 
 export const  createCLanguage = (language) => languages.post('/NewCl/',language);
 
-export const  deleteCLanguage = (language) => languages.delete('/showcountrysl/:id',language);
+export const  deleteCLanguage = (name_language) => languages.delete(`/deletecountrysl/${name_language}`);

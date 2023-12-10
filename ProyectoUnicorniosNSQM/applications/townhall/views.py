@@ -79,7 +79,10 @@ class TownHallListAPIView(ListAPIView):
     queryset = TownHall.objects.all()
     serializer_class = TownHallSerializer
 
-class TownHallDeleteAPIView(DestroyAPIView):
-    queryset = TownHall.objects.all()
-    serializer_class = TownHallSerializer
+
     
+class TownHallDeleteAPIView(DestroyAPIView):
+    serializer_class = TownHallSerializer
+
+    def get_queryset(self):
+        return TownHall.objects.all()

@@ -13,7 +13,6 @@ class Country(models.Model):
     GNP = models.DecimalField('GNPCountry', max_digits=10, decimal_places=2, null=True)
     GNPold = models.DecimalField('GNPold', max_digits=10, decimal_places=2, null=True)
     localname = models.CharField('countryLocalname', max_length=45, null=False)
-    name_language = models.ForeignKey('countrylanguage.CountryLanguage', verbose_name=("Name Language"), on_delete=models.CASCADE)
     government = models.CharField('countryGovernment', max_length=45, null=False)
     statehead = models.CharField('countryLeader', max_length=60, null=True)
     capital_country = models.IntegerField('capitalId', null=True)

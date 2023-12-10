@@ -10,5 +10,8 @@ urlpatterns = [
                 name='NewCity'),
         path('showcity/',
              views.CityListAPIView.as_view(),
-             name='city-list')
+             name='city-list'),
+             path('deletecity/<pk>',
+             views.CityDeleteAPIView.as_view(),
+             name='city-Delete')
 ]

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Fields from "../../components/Fields";
 import {useForm} from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
-import { getAllcountrys, createCountry } from "../../api/country.api";
+import { getAllcountrys, createCountry, deleteCountry } from "../../api/country.api";
 
 
 function CountryForm (){
@@ -13,6 +13,18 @@ function CountryForm (){
         console.log(data);
         
     });
+
+    useEffect(() => {
+        async function loadCountries() {
+            const res = await getAllcountrys();
+            setCountries(res.data);
+            console.log(res)
+        }
+        loadCountries();
+    }, [])
+
+
+    const [languages, setCountries] = useState([]);
     var nameforms = 'Country'
     return(
         <div>
@@ -27,70 +39,81 @@ function CountryForm (){
                                     <div className="border-b border-gray-900/10 pb-12">
                                         <h2 className="text-base font-semibold leading-7 text-gray-900">{nameforms}'s informations</h2>
                                         <Fields 
-                                            labelname = 'Country Name'  
+                                            labelname = 'id_country'  
                                             register={register}
                                             placehold = 'Spain' 
                                             />
                                         <Fields 
-                                            labelname = 'Country id' 
+                                            labelname = 'nombre_country' 
                                             register={register}
                                             placehold = 'SP' 
                                             />
                                         <Fields 
-                                            labelname = 'Contintent' 
+                                            labelname = 'continent_country' 
                                             register={register}
                                             placehold = 'Europe' 
                                             />
                                         <Fields 
-                                            labelname = 'Region Country' 
+                                            labelname = 'region_country' 
                                             register={register}
                                             placehold = 'Europe' 
                                             />
                                         <Fields 
-                                            labelname = 'CountryArea' 
+                                            labelname = 'surface_country' 
                                             register={register}
                                             placehold = '30000' 
                                             />
                                         <Fields 
-                                            labelname = 'Populaion Country' 
+                                            labelname = 'indep_year_country' 
                                             register={register}
                                             placehold = '300000' 
                                             />
                                         <Fields 
-                                            labelname = 'Life Expancy'
+                                            labelname = 'population'
+                                            placehold = '700'
+                                            register={register}
+                                            />
+                                        <Fields 
+                                            labelname = 'life_expectancy'
                                             placehold = '70'
                                             register={register}
                                             />
                                         <Fields 
-                                            labelname = 'GNP Country'
-                                            placehold = '300'
-                                            register={register}
-                                            />
-                                        <Fields 
-                                            labelname = 'GNPold'
+                                            labelname = "GNP"
                                             placehold = '300000'
                                             register={register}
                                             />
                                         <Fields 
-                                            labelname = 'Country Local Name'
+                                            labelname = "GNPold"
                                             placehold = 'Spain'
                                             register={register}
                                             />
                                         <Fields 
-                                            labelname = 'Country Governement'
+                                            labelname = "localname"
                                             placehold = 'King'
                                             register={register}
                                             />
                                         <Fields 
-                                            labelname = 'Capitalid'
+                                            labelname = "government"
                                             placehold = '3'
                                             register={register}
                                             />
                                         <Fields 
-                                            labelname = 'Country Code'
+                                            labelname = "statehead"
                                             placehold = '29'
                                             register={register}
-                                            />                                            
+                                            />    
+                                            <Fields 
+                                            labelname = "capital_country"
+                                            placehold = '29'
+                                            register={register}
+                                            />    
+                                            <Fields 
+                                            labelname = "code2"
+                                            placehold = '29'
+                                            register={register}
+                                            />    
+                                                                
                                     </div>
                                 </div>
 
@@ -129,7 +152,7 @@ function showCL(){
     return(
         <div className=" ">
             {Countrys.map(Country =>  (
-                <Countrycards key={Country.nombre_country_} Country={Country} />
+                <Countrycards key={Country.nombre_country} Country={Country} />
             ))}
         </div>
     )
@@ -146,8 +169,14 @@ function showCL(){
             </h1>
             <p>Id country  {Country.id_country}</p>
             <p>Id population {Country.population}</p>
-            <p>Language{Country.name_language}</p>
-            <button type='' className="botones">Delete</button>
+            <p>Language{Country.id_language}</p>
+            <button onClick= { async () =>{
+            const accept = window.confirm('are u sure=')
+            if (accept){
+                await deleteCountry(Country.id_country)
+                navigate("/country")
+            }
+        }} className="botones">Delete</button>
                             
         </div>
     )

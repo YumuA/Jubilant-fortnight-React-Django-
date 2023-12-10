@@ -4,13 +4,14 @@ import Fields from "../../components/Fields";
 import { useNavigate } from "react-router-dom"
 import {useForm} from 'react-hook-form';
 import '../../styles/sass/components/TownHall.sass'; 
-import { createtownhall, getAllTownHalls } from '../../api/townhall.api'; 
+import { createtownhall, getAllTownHalls, deletetownhall } from '../../api/townhall.api'; 
 
 function TownHall (){
     const {register, handleSubmit, formState} = useForm();
     const onSubmit = handleSubmit( async (data) => {
         const res = await createtownhall(data)
         console.log(data);
+        
         
     });
     var nameforms = 'TownHall'
@@ -72,6 +73,8 @@ function showtown(){
       async function loadTownHalls(){
           const res = await getAllTownHalls();
           setTownHall(res.data);
+
+          console.log(res)
       }
       loadTownHalls();
   }, []);
@@ -98,7 +101,8 @@ function TownHallcards({ TownHall }){
           <button onClick= { async () =>{
             const accept = window.confirm('are u sure=')
             if (accept){
-                await deletetownhall(townhall.id_townhall)
+                await deletetownhall(TownHall.id_townhall)
+                
                 navigate("/townhall")
             }
         }} className="botones">Delete</button>

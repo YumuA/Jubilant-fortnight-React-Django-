@@ -13,6 +13,6 @@ export const  createCountry = (country) =>{
     return countrys.post('/NewCountry/',country);
 }
 
-export const  deleteCountry = (country) =>{
-    return countrys.delete('/showcountry/:id',country);
+export const  deleteCountry = (id_country) =>{
+    return countrys.delete(`/deletecountry/${id_country}`);
 }

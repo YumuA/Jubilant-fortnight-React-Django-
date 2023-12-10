@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import getAllCitys from "../../api/city.api.js"
+import {getAllCitys, deleteCity} from "../../api/city.api.js"
 import Citycards from "./Citycards.jsx";
 function CityList(){
 

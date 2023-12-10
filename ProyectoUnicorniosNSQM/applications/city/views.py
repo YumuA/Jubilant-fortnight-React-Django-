@@ -52,3 +52,9 @@ class CityListAPIView(ListAPIView):
 
     def get_queryset(self):
         return City.objects.all()
+
+class CityDeleteAPIView(DestroyAPIView):
+    serializer_class = CitySerializer
+
+    def get_queryset(self):
+        return City.objects.all()

@@ -9,5 +9,5 @@ urlpatterns = [
                 TownHallAPISerializer.as_view(),
                 name='NewTownHall'),
                 path('showtownhalls/', TownHallListAPIView.as_view(), name='townhall-list'),
-                path('deletetownhalls/', TownHallDeleteAPIView.as_view(), name='townhall-del'),
+                path('deletetownhalls/<pk>/', TownHallDeleteAPIView.as_view(), name='townhall-del'),
 ]

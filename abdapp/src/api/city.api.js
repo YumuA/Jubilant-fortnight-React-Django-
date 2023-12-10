@@ -13,6 +13,6 @@ export const  createCity = (city) =>{
     return citys.post('/NewCity/',city);
 }
 
-export const  deleteCity = (city) =>{
-    return citys.delete('/showcity/:id',city);
+export const  deleteCity = (idCity) =>{
+    return citys.delete(`/deletecity/${idCity}`);
 }

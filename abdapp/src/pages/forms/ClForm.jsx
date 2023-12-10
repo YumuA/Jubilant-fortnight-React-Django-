@@ -2,10 +2,10 @@ import React from "react";
 import Fields from "../../components/Fields";
 import {useForm} from 'react-hook-form';
 import { useEffect, useState } from "react"
-import { getAllLanguages} from '../../api/language.api.js';
-import { getAllcountrys, createCountry, deleteCountry } from '../../api/country.api.js';
+import { getAllLanguages } from '../../api/language.api.js';
+import { getAllcountrys } from '../../api/country.api.js';
 import { useNavigate } from "react-router-dom"
-import { getAllCountryLanguage, createCLanguage } from "../../api/countrylanguage.api";
+import { getAllCountryLanguage, deleteCLanguage, createCLanguage  } from "../../api/countrylanguage.api";
 
 
 
@@ -19,21 +19,28 @@ function CountryLanguage (){
         async function loadLanguages(data){
             const res = await getAllLanguages(data);
             setLanguage(res.data);
+
         }
-        loadLanguages();    
+           
         async function loadCountrys(){
             const res = await getAllcountrys();
             setCountry(res.data);
+
         }
         loadCountrys(); 
+        loadLanguages(); 
     },[])
    
    
 
-    const onSubmit = handleSubmit( async (data) => {
-        const res = await getAllLanguages(data)
+    const onSubmit = handleSubmit(async (data) => {
         console.log(data);
-        
+        try {
+            const res = await createCLanguage(data);
+            console.log(res.data); 
+        } catch (error) {
+            console.error(error); 
+        }
     });
 
     var nameforms = 'Country Language'
@@ -48,23 +55,24 @@ function CountryLanguage (){
                             <div className="space-y-12 flex justify-center">
                                     <div className="border-b border-gray-900/10 pb-12">
                                         <h2 className="text-base font-semibold leading-7 text-gray-900">{nameforms}'s informations</h2>
-                                        <Fields type='text'labelname="name_language" placehold="name of language" register={register} />
+                                        <Fields type='text' labelname="name_language" placehold="name of language" register={register} />
                                         <label htmlFor="id_country" className="text-sm font-medium leading-5 text-gray-700 flex mb-1">Select Country</label>
-                                        <select name="id_country" register={register("id_country")} className="ring-gray-300 border-0 rounded p-2 w-full text-gray-700 text-sm bg-transparent ">
-                                            {countrys.map(country => (
-                                                <option key={country.id_country} value={country.id_country}>
-                                                    {country.nombre_country}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <label htmlFor="id_language" className="text-sm font-medium leading-5 text-gray-700 flex mb-1">Select Language</label>
-                                       <select name="id_language" register={register("id_language")} className="ring-gray-300 border-0 rounded p-2 w-full text-gray-700 text-sm bg-transparent ">
-                                            {languages.map(language => (
-                                                <option key={language.id_language} value={language.id_language}>
-                                                    {language.name_language}
-                                                </option>
-                                            ))}
-                                        </select>
+                                            <select name="id_country" {...register("id_country")} className="ring-gray-300 border-0 rounded p-2 w-full text-gray-700 text-sm bg-transparent ">
+                                                {countrys.map(country => (
+                                                    <option key={country.id_country} value={country.id_country}>
+                                                        {country.nombre_country}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <label htmlFor="id_language" className="text-sm font-medium leading-5 text-gray-700 flex mb-1">Select Language</label>
+                                            <select name="id_language" {...register("id_language")} className="ring-gray-300 border-0 rounded p-2 w-full text-gray-700 text-sm bg-transparent ">
+                                                {languages.map(Language => (
+                                                    <option key={Language.id_language} value={Language.id_language}>
+                                                        {Language.id_language}
+                                                    </option>
+                                                ))}
+                                            </select>
+
                                     </div>
                                 </div>
 
@@ -119,7 +127,13 @@ function showCL(){
             </h1>
             <p>Id language {CountryLanguage.id_language}</p>
             <p>Id country {CountryLanguage.id_country}</p>
-            <button type='' className="botones">Delete</button>
+            <button onClick= { async () =>{
+            const accept = window.confirm('are u sure=')
+            if (accept){
+                await deleteCLanguage(CountryLanguage.name_language)
+                navigate("/Countryl")
+            }
+        }} className="botones">Delete</button>
                             
         </div>
     )
